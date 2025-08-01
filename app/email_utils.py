@@ -22,7 +22,6 @@ def send_mail(data: Dict[str, Any]) -> None:
         EmailError: If there's an error sending the email
     """
     try:
-        msg = MailBody(**data)
         
         mail = mt.Mail(
             sender=mt.Address(email="hello@demomailtrap.co",
@@ -36,7 +35,8 @@ def send_mail(data: Dict[str, Any]) -> None:
         client = mt.MailtrapClient(token=settings.MAILTRAP_API_TOKEN)
         response = client.send(mail)
 
-        logger.info(f"Email sent successfully to {msg.to} - response: {response}")
+        logger.info(f"Email sent successfully to {mail.to} - response:"
+                    f" {response}")
     except Exception as e:
         logger.error(f"Unexpected error sending email: {str(e)}")
         raise EmailError(f"Unexpected error sending email: {str(e)}")
