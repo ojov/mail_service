@@ -1,0 +1,19 @@
+# Test your FastAPI endpoints
+
+### Test root endpoint
+GET http://127.0.0.1:8000/
+Accept: application/json
+
+### Test send-email endpoint
+POST http://127.0.0.1:8000/send-email
+Content-Type: application/json
+Accept: application/json
+
+{
+  "to": ["recipient@example.com"],
+  "subject": "Test Email",
+  "body": "<h1>Hello World</h1><p>This is a test email from the FastAPI Email Service.</p>",
+  "html": true
+}
+
+###
