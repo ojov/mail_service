@@ -1,10 +1,9 @@
 from fastapi import BackgroundTasks, FastAPI, HTTPException, status
-from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 from app.config import MailBody
-from app.email_utils import send_mail, EmailError
-
+from app.email_utils import send_mail
+from fastapi.middleware.cors import CORSMiddleware
 # Create FastAPI app with metadata
 app = FastAPI(
     title="Email Service API",
@@ -12,6 +11,14 @@ app = FastAPI(
     version="1.0.0",
 )
 
+# Add CORS Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Or specify frontend URL: ["https://yourfrontend.com"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Response models
 class SuccessResponse(BaseModel):

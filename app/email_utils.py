@@ -1,7 +1,7 @@
 import logging
 from typing import Dict, Any
 import mailtrap as mt
-from app.config import settings, MailBody
+from app.config import settings
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +19,7 @@ def send_mail(data: Dict[str, Any]) -> None:
         data: Dictionary containing email details (to, subject, body)
 
     Raises:
-        EmailError: If there's an error sending the email
+        EmailError: If there's an error, send the email
     """
     try:
         
@@ -27,9 +27,9 @@ def send_mail(data: Dict[str, Any]) -> None:
             sender=mt.Address(email="hello@demomailtrap.co",
                               name="Meeting Victor"),
             to=[mt.Address(email="victorojo007@gmail.com")],
-            subject=data["subject"],
-            text=data["body"],
-            category="Profile Messages",
+            subject=data["subject"] + f" from {data['sender_name']}",
+            text=data["body"] + f"\n Sender email: {data['sender_email']}",
+          category="Profile Messages",
         )
 
         client = mt.MailtrapClient(token=settings.MAILTRAP_API_TOKEN)

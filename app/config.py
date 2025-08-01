@@ -17,7 +17,8 @@ settings = Settings()
 
 
 class MailBody(BaseModel):
-    to: str
+    sender_name: str
+    sender_email: str
     subject: str
     body: str
     html: bool = True
